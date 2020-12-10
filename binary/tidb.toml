@@ -1,0 +1,79 @@
+# TiDB Configuration.
+
+# enable-dynamic-config = false
+
+compatible-kill-query = false
+host = "{tidb_listen_host}"
+lease = "45s"
+oom-action = "log"
+socket = ""
+store = "tikv"
+token-limit = 2000
+
+[log]
+expensive-threshold = 10000000
+level = "error"
+slow-threshold = 300
+
+[security]
+cluster-ssl-ca = ""
+cluster-ssl-cert = ""
+cluster-ssl-key = ""
+
+[status]
+metrics-addr = ""
+metrics-interval = 15
+#status-host = "0.0.0.0"
+#status-port = 10080
+
+[performance]
+cross-join = true
+feedback-probability = 0.0
+force-priority = "NO_PRIORITY"
+max-procs = 0
+stats-lease = "3s"
+stmt-count-limit = 5000
+txn-total-size-limit = 104857599
+
+[proxy-protocol]
+
+[prepared-plan-cache]
+capacity = 10000
+#enabled = false
+enabled = true
+memory-guard-ratio = 0.1
+
+[opentracing]
+enable = false
+rpc-metrics = false
+
+[opentracing.reporter]
+buffer-flush-interval = 0
+local-agent-host-port = ""
+log-spans = false
+queue-size = 0
+
+[opentracing.sampler]
+max-operations = 0
+param = 1.0
+sampling-refresh-interval = 0
+sampling-server-url = ""
+type = "const"
+
+[tikv-client]
+commit-timeout = "41s"
+grpc-connection-count = 12
+grpc-keepalive-time = 10
+grpc-keepalive-timeout = 3
+max-batch-wait-time = 2000000
+
+# [tikv-client.copr-cache]
+# enabled = false
+
+[binlog]
+ignore-error = false
+write-timeout = "15s"
+
+[pessimistic-txn]
+enable = true
+max-retry-count = 256

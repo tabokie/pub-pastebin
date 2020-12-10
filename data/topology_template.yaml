@@ -1,0 +1,75 @@
+# # Global variables are applied to all deployments and used as the default value of
+# # the deployments if a specific deployment value is missing.
+global:
+  user: "centos"
+  ssh_port: 22
+  deploy_dir: "/data/deploy"
+  data_dir: "data"
+
+# # Monitored variables are applied to all the machines.
+monitored:
+  node_exporter_port: 9100
+  blackbox_exporter_port: 9115
+
+# # Server configs are used to specify the runtime configuration of TiDB components.
+# # All configuration items can be found in TiDB docs:
+# # - TiDB: https://pingcap.com/docs/stable/reference/configuration/tidb-server/configuration-file/
+# # - TiKV: https://pingcap.com/docs/stable/reference/configuration/tikv-server/configuration-file/
+# # - PD: https://pingcap.com/docs/stable/reference/configuration/pd-server/configuration-file/
+# # All configuration items use points to represent the hierarchy, e.g:
+# #   readpool.storage.use-unified-pool
+# #      
+# # You can overwrite this configuration via the instance-level `config` field.
+
+server_configs:
+
+pd_servers:
+  - host: TIDB_ADDR
+    # ssh_port: 22
+    # name: "pd-1"
+    client_port: 2379
+    peer_port: 2380
+    # deploy_dir: "tabokie/deploy2/pd-2379"
+    # data_dir: "/tidb-data/pd-2379"
+    # log_dir: "/tidb-deploy/pd-2379/log"
+    # numa_node: "0,1"
+    # # The following configs are used to overwrite the `server_configs.pd` values.
+    # config:
+    #   schedule.max-merge-region-size: 20
+    #   schedule.max-merge-region-keys: 200000
+
+tidb_servers:
+  - host: TIDB_ADDR
+    # ssh_port: 22
+    port: 4000
+    status_port: 10080
+    # deploy_dir: "tabokie/deploy2/tidb-4000"
+    # log_dir: "/tidb-deploy/tidb-4000/log"
+    # numa_node: "0,1"
+    # # The following configs are used to overwrite the `server_configs.tidb` values.
+    # config:
+    #   log.slow-query-file: tidb-slow-overwrited.log
+
+monitoring_servers:
+  - host: TIDB_ADDR
+    # ssh_port: 22
+    # port: 9200
+    # deploy_dir: "tabokie/deploy2/prometheus-8249"
+    # data_dir: "/tidb-data/prometheus-8249"
+    # log_dir: "/tidb-deploy/prometheus-8249/log"
+
+grafana_servers:
+  - host: TIDB_ADDR
+    # port: 3010
+    # deploy_dir: "tabokie/deploy2/grafana-3000"
+
+alertmanager_servers:
+  - host: TIDB_ADDR
+    # ssh_port: 22
+    # web_port: 9103
+    #cluster_port: 9104
+    #deploy_dir: "tabokie/deploy2/alertmanager-9093"
+    # data_dir: "/tidb-data/alertmanager-9093"
+    # log_dir: "/tidb-deploy/alertmanager-9093/log"
+
+tikv_servers:
