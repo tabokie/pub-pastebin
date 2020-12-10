@@ -10,6 +10,7 @@ Used for quick setup of a standard TIDB cluster. Clone this branch to the
 control machine and run the following:
 
 ```
+# copy the ssh key if any to control machine by scp -i KEY KEY CONTROL:~/
 # edit configurations.sh.
 # put customized binary and configurations into /binary folder
 # with the name tikv-server-SUFFIX and tikv-SUFFIX.toml.

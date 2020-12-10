@@ -1,28 +1,27 @@
 # must set to $(pwd)
-PROJECT=
-USER_NAME=
+export PROJECT=
+export USER_NAME=
 # private key to TiDB and TiKVs if any
-SSH_KEY=
-TIDB="127.0.0.1"
-TIKV="127.0.0.1 127.0.0.1"
+export SSH_KEY=
+export TIDB="127.0.0.1"
+export TIKV="127.0.0.1 127.0.0.1"
 ME="127.0.0.1"
-BINARY_DIR=${PROJECT}/binary
-TIUP_NAME="tidb-test"
+export BINARY_DIR=${PROJECT}/binary
+export TIUP_NAME="tidb-test"
 
 # TPC-C related
-TPCC_WAREHOUSE=5000
-TPCC_LOAD_THREADS=40
-TPCC_DURATION=8h
-TPCC_THREADS=800
+export TPCC_WAREHOUSE=5000
+export TPCC_LOAD_THREADS=40
+export TPCC_DURATION=8h
+export TPCC_THREADS=800
 
 # fixed
-WORKING_DIR=/data
-BACKUP_DIR=/backup
-DEPLOY_DIR=${WORKING_DIR}/deploy
-if ![ "${SSH_KEY}" ]; then
-    PRIVATE_SSH_KEY=${PROJECT}/data/key
+export WORKING_DIR=/data
+export BACKUP_DIR=/backup
+export DEPLOY_DIR=${WORKING_DIR}/deploy
+if [ "${SSH_KEY}" ]; then
+    export PRIVATE_SSH_KEY=${SSH_KEY}
 else
-    PRIVATE_SSH_KEY=${SSH_KEY}
+    export PRIVATE_SSH_KEY=${PROJECT}/data/key
 fi
-SSH_FLAGS="-i ${PRIVATE_SSH_KEY}
-
+export SSH_FLAGS="-o StrictHostKeyChecking=no -i ${PRIVATE_SSH_KEY}"

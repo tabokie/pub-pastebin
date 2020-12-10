@@ -1,7 +1,6 @@
 #!/bin/bash
 set -eof pipefail
 
-source ../configurations.sh
 SUFFIX="-${1}"
 if [ -z "${1}" ]; then
     SUFFIX=""

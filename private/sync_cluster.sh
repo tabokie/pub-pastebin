@@ -2,8 +2,6 @@
 # synchronize tidb/pd binary and config
 set -eof pipefail
 
-source ../configurations.sh
-
 TIDB_DIR="${DEPLOY_DIR}/tidb*"
 PD_DIR="${DEPLOY_DIR}/pd*"
 

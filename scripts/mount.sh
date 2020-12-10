@@ -9,7 +9,7 @@ else
   PARTITION=${DEVICE}1
 fi
 
-if [ -f ${PARTITION} ] ; then
+if ! [ -f ${PARTITION} ] ; then
   sudo parted -s -a optimal $DEVICE mklabel gpt -- mkpart primary ext4 1 -1
   sleep 2
   sudo mkfs.ext4 $PARTITION
