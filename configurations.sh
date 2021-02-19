@@ -5,9 +5,9 @@ export USER_NAME=
 export SSH_KEY=
 export TIDB="127.0.0.1"
 export TIKV="127.0.0.1 127.0.0.1"
-ME="127.0.0.1"
 export BINARY_DIR=${PROJECT}/binary
 export TIUP_NAME="tidb-test"
+export VERSION="nightly" # v5.0.0-rc
 
 # TPC-C related
 export TPCC_WAREHOUSE=5000
