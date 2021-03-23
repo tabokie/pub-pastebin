@@ -12,6 +12,8 @@ sleep 1
 source ./configurations.sh
 SERVERS="${TIDB} ${TIKV}"
 
+sudo chmod 600 ${SSH_KEY}
+
 cp ./data/topology_template.yaml ./data/topology.yaml
 sed -i "s/TIDB_ADDR/${TIDB}/g" ./data/topology.yaml
 sed -i "s/USER_NAME/${USER_NAME}/g" ./data/topology.yaml
