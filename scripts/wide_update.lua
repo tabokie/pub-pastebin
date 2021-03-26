@@ -17,3 +17,4 @@ UPDATE sbtest%d SET c%d= '%s' WHERE id = %d
 ]], tnum, cnum, c_val, id)
 
         con:query(query)
+end
