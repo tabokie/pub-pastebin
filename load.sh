@@ -9,7 +9,7 @@ source configurations.sh
 ./private/sync_tikv.sh ${1}
 ./private/restore_metrics.sh
 tiup cluster start ${TIUP_NAME}
-mysql -u root -h ${TIDB} -P 4000 --execute="set global tidb_enable_clustered_index=1;"
+mysql -u root -h ${TIDB} -P 4000 --execute="set global tidb_enable_clustered_index=on;"
 mysql -u root -h ${TIDB} -P 4000 --execute="set global tidb_hashagg_final_concurrency=1;set global tidb_hashagg_partial_concurrency=1;set global tidb_disable_txn_auto_retry=0;"
 sleep 5
 

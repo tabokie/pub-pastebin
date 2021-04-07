@@ -3,7 +3,7 @@
 global:
   user: "USER_NAME"
   ssh_port: 22
-  deploy_dir: "DEPLOY_DIR"
+  deploy_dir: "/data/deploy"
   data_dir: "data"
 
 # # Monitored variables are applied to all the machines.
