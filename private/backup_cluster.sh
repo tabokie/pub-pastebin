@@ -7,7 +7,7 @@ if [ -z "${1}" ]; then
 fi
 
 BACKUP_SUBDIR=${BACKUP_DIR}/backup${SUFFIX}
-CMD="rm -rf ${BACKUP_SUBDIR} && mkdir -p ${BACKUP_SUBDIR} && cp -rf ${DEPLOY_DIR} \
+CMD="rm -rf ${BACKUP_SUBDIR} && mkdir -p ${BACKUP_SUBDIR} && cp -rf ${DEPLOY_DIR}/* \
     ${BACKUP_SUBDIR}/"
 for i in ${TIKV}; do
     echo backup tikv on $i
