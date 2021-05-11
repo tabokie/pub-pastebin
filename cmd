@@ -15,3 +15,7 @@ bin/br backup full --pd pd0:2379 --storage "local:///data/backup/full" \
     --log-file "/logs/br_backup.log"
 # edit remote
 vim scp://root@172.16.4.75//nvme0n1/tabokie/deploy-tpcc/tikv-20179/conf/tikv.toml
+# br
+export AWS_ACCESS_KEY_ID=${AccessKey}
+export AWS_SECRET_ACCESS_KEY=${SecretKey}
+br restore full --pd "${PDIP}:2379" --storage "s3://${Bucket}/${Folder}" --s3.region "${region}" --send-credentials-to-tikv=true --log-file restorefull.log

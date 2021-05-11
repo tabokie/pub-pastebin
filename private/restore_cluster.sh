@@ -8,7 +8,7 @@ fi
 
 BACKUP_SUBDIR=${BACKUP_DIR}/backup${SUFFIX}
 CMD="mkdir -p ${DEPLOY_DIR} && rm -rf ${DEPLOY_DIR}/tikv* && cp -rf ${BACKUP_SUBDIR}/tikv* \
-    ${DEPLOY_DIR}/ && rm ${DEPLOY_DIR}/tikv*/last_tikv.toml"
+    ${DEPLOY_DIR}/ && rm ${DEPLOY_DIR}/tikv*/data/last_tikv.toml"
 for i in ${TIKV}; do
     echo restore tikv on $i
     nohup ssh $SSH_FLAGS ${USER_NAME}@$i "${CMD}" &
