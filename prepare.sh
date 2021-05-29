@@ -41,33 +41,42 @@ if [ "${set_dir}" = "y" ]; then
         addr=${USER_NAME}@${addr}
         echo "on ${addr}:"
         ssh ${SSH_FLAGS} ${addr} "lsblk"
-        read -p "mount dir? (y/n)" mount_dir
-        if [ "${mount_dir}" = "y" ]; then
-            read -p "which device?" device
-            read -p "mount name?" name
-            ssh ${SSH_FLAGS} ${addr} "~/mount.sh ${device} /${name} && sudo rm -rf /data \
-                && sudo rm -rf /backup && sudo ln -s /${name} /data \
-                && sudo ln -s /${name} /backup && sudo chown -R ${USER_NAME}:${USER_NAME} \
-                /data && sudo chown -R ${USER_NAME}:${USER_NAME} /backup && sudo \
-                chown -R ${USER_NAME}:${USER_NAME} /${name}"
-        else
-            ssh ${SSH_FLAGS} ${addr} "sudo mkdir -p /data && sudo mkdir -p /backup && sudo chown -R \
-                ${USER_NAME}:${USER_NAME} /data && sudo chown -R ${USER_NAME}:${USER_NAME} /backup"
-        fi
-    done
-else
-    for addr in ${SERVERS}; do
-        addr=${USER_NAME}@${addr}
-        OWNER=$(ssh ${SSH_FLAGS} ${addr} "ls -ld ${DATA_DIR}" | awk '{print $3}')
-        if [ ${OWNER} != ${USER_NAME} ]; then
-            echo "DATA_DIR owner isn't ${USER_NAME}" 
-        fi
-        OWNER=$(ssh ${SSH_FLAGS} ${addr} "ls -ld ${BACKUP_DIR}" | awk '{print $3}')
-        if [ ${OWNER} != ${USER_NAME} ]; then
-            echo "BACKUP_DIR owner isn't ${USER_NAME}" 
-        fi
+        while read -p "action? (mount/link/mkdir/exit)" action && [ "${action}" != "exit" ]; do
+            case "${action}"
+            in
+                mount)
+                    read -p "which device?(sda)" device
+                    read -p "mount point?(/data)" mnt
+                    ssh ${SSH_FLAGS} ${addr} "~/mount.sh ${device} ${mnt} && sudo \
+                        chown -R ${USER_NAME}:${USER_NAME} ${mnt}"
+                    ;;
+                link)
+                    read -p "target?(/data1)" target
+                    read -p "name?(/data)" name
+                    ssh ${SSH_FLAGS} ${addr} "sudo rm -rf ${name} \
+                        && sudo ln -s ${target} ${name} \
+                        && sudo chown -R ${USER_NAME}:${USER_NAME} ${name}"
+                    ;;
+                mkdir)
+                    read -p "dir?(/data1)" dir
+                    ssh ${SSH_FLAGS} ${addr} "sudo mkdir -p ${dir} && sudo chown -R \
+                        ${USER_NAME}:${USER_NAME} ${dir}"
+                    ;;
+            esac
+        done
     done
 fi
+for addr in ${SERVERS}; do
+    addr=${USER_NAME}@${addr}
+    OWNER=$(ssh ${SSH_FLAGS} ${addr} "ls -ld ${WORKING_DIR}" | awk '{print $3}')
+    if [ ${OWNER} != ${USER_NAME} ]; then
+        echo "WORKING_DIR owner isn't ${USER_NAME}"
+    fi
+    OWNER=$(ssh ${SSH_FLAGS} ${addr} "ls -ld ${BACKUP_DIR}" | awk '{print $3}')
+    if [ ${OWNER} != ${USER_NAME} ]; then
+        echo "BACKUP_DIR owner isn't ${USER_NAME}"
+    fi
+done
 echo "setup alias for servers"
 i=0
 for addr in ${TIDB}; do
