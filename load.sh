@@ -26,4 +26,5 @@ sleep 60
 ./private/stop.sh
 sleep 5
 ./private/backup_cluster.sh ${1}
+./listener/on_load_finished.sh
 
