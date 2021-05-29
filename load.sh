@@ -1,4 +1,5 @@
 #!/bin/bash
+# load.sh tpcc|sysbench
 set -ueo pipefail
 
 source configurations.sh
@@ -14,13 +15,10 @@ sleep 5
 
 go-tpc tpcc --host ${TIDB} --warehouses ${TPCC_WAREHOUSE} -T ${TPCC_LOAD_THREADS} prepare
 
-# break down to avoid 'server is busy' failure
-TPCC_TABLES="item customer district orders new_order order_line history warehouse stock"
-for i in $TPCC_TABLES; do
-    echo analyzing table $i
-    mysql -u root -h ${TIDB} -P 4000 --database="test" --execute="analyze table ${i};"
-    sleep 1
-done
+cd scripts && ./oltp_update_index.lua --mysql-host=${TIDB} --mysql-port=4000 --mysql-user=root --mysql-db=test --db-driver=mysql --report-interval=10 --threads=${SYSBENCH_LOAD_THREADS} --table_size=${SYSBENCH_TABLE_SIZE} --tables=${SYSBENCH_TABLE_COUNT} prepare
+cd ..
+
+./private/analyze_database.sh test
 echo analyze finished
 # wait for pending compaction
 sleep 60
