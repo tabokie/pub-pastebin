@@ -1,0 +1,108 @@
+# TiKV config
+
+# enable-dynamic-config = false
+log-level = "info"
+
+[readpool.unified]
+min-thread-count = 1
+max-thread-count = 8
+
+[readpool.storage]
+use-unified-pool = true
+
+[readpool.coprocessor]
+use-unified-pool = true
+#low-concurrency = 1
+#normal-concurrency = 12
+#high-concurrency = 1
+
+[server]
+grpc-raft-conn-num = 2
+grpc-concurrency = 3
+end-point-max-concurrency = 4
+labels = {}
+
+[storage]
+scheduler-worker-pool-size = 14
+capacity = "200G"
+
+[storage.block-cache]
+capacity = "12G"
+
+[pd]
+
+[metric]
+
+[raftstore]
+store-pool-size = 4
+apply-pool-size = 4
+# delay-sync-ns = 1000000
+perf-level = 4
+hibernate-regions = false
+
+[coprocessor]
+
+[rocksdb]
+max-background-jobs = 8
+max-sub-compactions = 3
+wal-dir = ""
+#rate-bytes-per-sec = "120MB"
+#auto-tuned = true
+#rate-limiter-mode = 3
+#enable-pipelined-write = false
+#enable-unordered-write = true
+
+[rocksdb.defaultcf]
+soft-pending-compaction-bytes-limit = "4096GB"
+hard-pending-compaction-bytes-limit = "4096GB"
+level0-slowdown-writes-trigger = 64
+level0-stop-writes-trigger = 128
+#block-size = "4KB"
+#max-compaction-bytes = "128MB"
+#write-buffer-size = "512MB"
+
+[rocksdb.defaultcf.titan]
+
+[rocksdb.lockcf]
+level0-slowdown-writes-trigger = 64
+level0-stop-writes-trigger = 128
+#block-size = "4KB"
+#write-buffer-size = "512MB"
+
+[rocksdb.titan]
+
+[rocksdb.writecf]
+level0-slowdown-writes-trigger = 64
+level0-stop-writes-trigger = 128
+#block-size = "4KB"
+#max-compaction-bytes = "128MB"
+#write-buffer-size = "512MB"
+
+[raftdb]
+max-background-jobs = 4
+max-sub-compactions = 2
+wal-dir = ""
+#rate-bytes-per-sec = "80M"
+#auto-tuned = true
+#rate-limiter-mode = 3
+
+[raftdb.defaultcf]
+#block-size = "4KB"
+#max-compaction-bytes = "128MB"
+#write-buffer-size = "512MB"
+
+[security]
+ca-path = ""
+cert-path = ""
+key-path = ""
+
+[import]
+
+[pessimistic-txn]
+pipelined = true
+
+[gc]
+compaction-filter-skip-version-check = true
+enable-compaction-filter = true
+#max-write-bytes-per-sec = "50MB"
+
