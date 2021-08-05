@@ -3,3 +3,8 @@
 git clone -b $WORKSPACE https://github.com/tabokie/pub-pastebin.git
 
 wget https://raw.githubusercontent.com/tabokie/pub-pastebin/$WORKSPACE/$PATH
+
+## Home (linux)
+
+Setup for Linux
+

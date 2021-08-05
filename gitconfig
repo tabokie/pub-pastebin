@@ -1,0 +1,13 @@
+[user]
+	signingkey = 56E86C0FE5B15364
+	name = tabokie
+	email = xy.tao@outlook.com
+[gpg]
+	program = gpg2
+[core]
+	pager = delta
+[delta]
+	line-numbers = true
+	#side-by-side = true
+	syntax-theme = Dracula
+
