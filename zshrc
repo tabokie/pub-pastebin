@@ -110,6 +110,7 @@ alias push='git push origin `git branch --show-current`'
 export CARGO_HOME=/data4/tabokie/packages/cargo/.cargo
 export RUSTUP_HOME=/data4/tabokie/packages/cargo/.rustup
 export PATH=$CARGO_HOME/bin:$PATH
+source /opt/rh/devtoolset-8/enable
 
 lsd () {
   if [ -z "$1" ]; then
