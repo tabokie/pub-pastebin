@@ -12,8 +12,6 @@ sleep 1
 source ./configurations.sh
 SERVERS="${TIDB} ${TIKV}"
 
-sudo chmod 600 ${SSH_KEY}
-
 cp ./data/topology_template.yaml ./data/topology.yaml
 sed -i "s/TIDB_ADDR/${TIDB}/g" ./data/topology.yaml
 sed -i "s/USER_NAME/${USER_NAME}/g" ./data/topology.yaml
@@ -21,14 +19,16 @@ for addr in ${TIKV}; do
     echo "  - host: ${addr}" >> ./data/topology.yaml
 done
 # connect to servers
-if [ "${SSH_KEY}" = "" ]; then
+if [[ ${SSH_KEY} = "" ]]; then
     read -p "setup ssh? (y/n)" set_ssh
-    if [ "${set_ssh}" = "y" ]; then
-        ssh-keygen -t rsa -b 4096 -f ./data/key -P ""
+    if [[ ${set_ssh} = "y" ]]; then
+        ssh-keygen -t rsa -b 4096 -f ${PRIVATE_SSH_KEY} -P ""
         for addr in ${SERVERS}; do
-            ssh-copy-id ${USER_NAME}@${addr}
+            ssh-copy-id -i ${PRIVATE_SSH_KEY} ${USER_NAME}@${addr}
         done
     fi
+else
+    sudo chmod 600 ${SSH_KEY}
 fi
 # check connectivity
 for addr in ${SERVERS}; do
