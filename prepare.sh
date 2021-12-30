@@ -1,8 +1,8 @@
 #!/bin/bash
 set -ueo pipefail
 
-sudo apt-get -v &> /dev/null && sudo apt-get update && sudo apt-get install -y screen mysql-server vim wget git gcc
-which yum &> /dev/null && sudo yum install -y screen mysql vim wget git gcc
+sudo apt-get -v &> /dev/null && sudo apt-get update && sudo apt-get install -y screen mysql-server vim wget git gcc && curl -s https://packagecloud.io/install/repositories/akopytov/sysbench/script.deb.sh | sudo bash && sudo apt -y install sysbench
+which yum &> /dev/null && sudo yum install -y screen mysql vim wget git gcc && curl -s https://packagecloud.io/install/repositories/akopytov/sysbench/script.rpm.sh | sudo bash && sudo yum -y install sysbench
 # tiup
 curl --proto '=https' --tlsv1.2 -sSf https://tiup-mirrors.pingcap.com/install.sh | sh
 # go-tpc
