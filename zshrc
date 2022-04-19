@@ -102,13 +102,15 @@ unsetopt nomatch
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
 
 export PATH=/home/tabokie/.tiup/bin:$PATH
+export PATH=$PATH:/usr/local/go/bin
 export GPG_TTY=$(tty)
 #alias commit='function _commit { git commit -s -m "$1" && lucky_commit 7; }; _commit '
 alias commit='function _commit {git commit -s -m "$1" && git push origin `git branch --show-current`}; _commit '
-#alias commit='git commit -s -m '
+alias commit2='git commit -s -m '
 alias push='git push origin `git branch --show-current`'
-export CARGO_HOME=/data4/tabokie/packages/cargo/.cargo
-export RUSTUP_HOME=/data4/tabokie/packages/cargo/.rustup
+alias glog='git log --oneline --decorate --graph -n 1000'
+export CARGO_HOME=/data4/tabokie/package/cargo/.cargo
+export RUSTUP_HOME=/data4/tabokie/package/cargo/.rustup
 export PATH=$CARGO_HOME/bin:$PATH
 source /opt/rh/devtoolset-8/enable
 
