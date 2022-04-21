@@ -22,3 +22,7 @@
 	templateDir = /home/tabokie/.git-templates/git-secrets
 [diff]
 	#external = difft
+[merge]
+	conflictstyle = diff3
+[mergetool]
+	hideResolved = true
