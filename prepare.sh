@@ -13,6 +13,7 @@ source ./configurations.sh
 SERVERS="${TIDB} ${TIKV}"
 
 cp ./data/topology_template.yaml ./data/topology.yaml
+sed -i "s/DEPLOY_DIR/${DEPLOY_DIR}/g" ./data/topology.yaml
 sed -i "s/TIDB_ADDR/${TIDB}/g" ./data/topology.yaml
 sed -i "s/USER_NAME/${USER_NAME}/g" ./data/topology.yaml
 for addr in ${TIKV}; do
