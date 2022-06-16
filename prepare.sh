@@ -10,7 +10,7 @@ curl --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/pingcap/g
 sleep 1
 
 source ./configurations.sh
-SERVERS="${TIDB} ${TIKV}"
+SERVERS="${TIDB} ${TIKV} ${OTHER_SERVERS}"
 
 cp ./data/topology_template.yaml ./data/topology.yaml
 sed -i "s/DEPLOY_DIR/${DEPLOY_DIR}/g" ./data/topology.yaml
@@ -42,23 +42,25 @@ done
 echo "setup alias for servers"
 i=0
 for addr in ${TIDB}; do
-    echo "Host db${i}
-        Hostname ${addr}
-        User ${USER_NAME}
-        IdentityFile ${PRIVATE_SSH_KEY}" >> ~/.ssh/config
+    printf "Host db${i}\n    Hostname ${addr}\n    User ${USER_NAME}\n" >> ~/.ssh/config
     if [ "${PRIVATE_SSH_KEY}" ]; then
-	echo "IdentityFile ${PRIVATE_SSH_KEY}" >> ~/.ssh/config
+	    printf "    IdentityFile ${PRIVATE_SSH_KEY}\n" >> ~/.ssh/config
     fi
     i=$((i+1))
 done
 i=0
 for addr in ${TIKV}; do
-    echo "Host kv${i}
-        Hostname ${addr}
-        User ${USER_NAME}
-        IdentityFile ${PRIVATE_SSH_KEY}" >> ~/.ssh/config
+    printf "Host kv${i}\n    Hostname ${addr}\n    User ${USER_NAME}\n" >> ~/.ssh/config
     if [ "${PRIVATE_SSH_KEY}" ]; then
-        echo "IdentityFile ${PRIVATE_SSH_KEY}" >> ~/.ssh/config
+	    printf "    IdentityFile ${PRIVATE_SSH_KEY}\n" >> ~/.ssh/config
+    fi
+    i=$((i+1))
+done
+i=0
+for addr in ${OTHER_SERVERS}; do
+    printf "Host ot${i}\n    Hostname ${addr}\n    User ${USER_NAME}\n" >> ~/.ssh/config
+    if [ "${PRIVATE_SSH_KEY}" ]; then
+	    printf "    IdentityFile ${PRIVATE_SSH_KEY}\n" >> ~/.ssh/config
     fi
     i=$((i+1))
 done

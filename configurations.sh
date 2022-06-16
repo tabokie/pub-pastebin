@@ -5,6 +5,7 @@ export USER_NAME=
 export SSH_KEY=
 export TIDB="127.0.0.1"
 export TIKV="127.0.0.1 127.0.0.1"
+export OTHER_SERVERS=""
 export BINARY_DIR=${PROJECT}/binary
 export TIUP_NAME="tidb-test"
 export VERSION="nightly" # v5.0.0-rc
@@ -20,9 +21,10 @@ export SYSBENCH_DURATION=1h
 export SYSBENCH_TABLE_COUNT=32
 export SYSBENCH_TABLE_SIZE=10000000
 
-# fixed
 export WORKING_DIR=/data
 export BACKUP_DIR=/backup
+
+# fixed
 export DEPLOY_DIR=${WORKING_DIR}/deploy
 if [ "${SSH_KEY}" ]; then
     export PRIVATE_SSH_KEY=${SSH_KEY}

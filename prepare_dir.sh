@@ -3,7 +3,7 @@
 set -ueo pipefail
 
 source ./configurations.sh
-SERVERS="${TIDB} ${TIKV}"
+SERVERS="${TIDB} ${TIKV} ${OTHER_SERVERS}"
 
 read -p "setup dir? (y/n)" set_dir
 if [ "${set_dir}" = "y" ]; then
