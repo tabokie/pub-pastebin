@@ -1,0 +1,6 @@
+#cloud-config
+# vim:syntax=yaml
+runcmd:
+  - mkdir /home/centos/data
+  - [ sh, -xc, "mkfs.ext4 /dev/nvme1n1; chown 'centos' /home/centos/data; echo '/dev/nvme1n1 /home/centos/data ext4 defaults,nofail,noatime,nodiratime,barrier=0,data=writeback 0 2' >> /etc/fstab; mount -a"]
+  - [ sh, -xc, "curl --proto '=https' --tlsv1.2 -sSf https://tiup-mirrors.pingcap.com/install.sh | sh"]

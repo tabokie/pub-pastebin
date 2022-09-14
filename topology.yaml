@@ -1,0 +1,25 @@
+global:
+  user: centos
+  ssh_port: 22
+  deploy_dir: "data"
+  data_dir: "data"
+
+server_configs:
+  tidb:
+  pd:
+  tikv:
+
+monitoring_servers:
+  - host: 10.0.1.15
+grafana_servers:
+  - host: 10.0.1.16
+
+tidb_servers:
+  - host: 10.0.1.30
+  # - host: 10.0.1.31
+pd_servers:
+  - host: 10.0.1.30
+tikv_servers:
+  - host: 10.0.1.20
+  - host: 10.0.1.21
+  - host: 10.0.1.22
