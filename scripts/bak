@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Fast backup directory, use hardlink to backup immutable files.
+# Usage: bak <src-dir> <dst-dir>
+set -euo pipefail
+
+src=$(realpath $1)
+dst=$(realpath $2)
+for i in $(find $src); do
+    path=${i#"$src"}
+    full_path=${dst}${path}
+    if [[ $i = *.sst ]]; then
+        ln --logical $i $full_path
+    elif [[ -d $i ]]; then
+        mkdir -p $full_path
+    else
+        cp $i $full_path
+    fi
+done
+echo "Backup completed."
