@@ -15,10 +15,10 @@ impl_1() {
     git stash && git checkout -b ${branch}
     sed -i -e '/submodule "rocksdb"/,+3d' .gitmodules
     echo "
-    [submodule \"rocksdb\"]
-        path = librocksdb_sys/rocksdb
-        url = https://github.com/"${user}"/rocksdb.git
-        branch = ${branch}" >> .gitmodules
+[submodule \"rocksdb\"]
+    path = librocksdb_sys/rocksdb
+    url = https://github.com/"${user}"/rocksdb.git
+    branch = ${branch}" >> .gitmodules
     git submodule sync && git submodule update --init --recursive --remote
     git add .gitmodules
     git add librocksdb_sys/rocksdb
