@@ -4,7 +4,7 @@ FOLDER=/root/tabokie/
 
 # install tools
 sudo yum update -y
-sudo yum install git vim curl wget make gcc cmake -y
+sudo yum install git vim curl wget make gcc cmake python3 -y
 sudo yum install centos-release-scl -y
 sudo yum install devtoolset-8-gcc devtoolset-8-gcc-c++ -y
 sudo yum groupinstall "Development Tools" -y
@@ -41,3 +41,9 @@ export CARGO_HOME=${FOLDER}/packages/cargo/.cargo
 curl https://sh.rustup.rs -sSf | sh
 source ~/.bashrc
 cargo install git-delta
+
+# install scrips
+mkdir -p ${FOLDER}/bin
+echo "export PATH=\${PATH}:${FOLDER}/bin" >> ~/.zshrc
+wget https://raw.githubusercontent.com/llvm/llvm-project/release/16.x/clang/tools/clang-format/clang-format-diff.py -O ${FOLDER}/bin/clang-format-diff.py
+sudo chmod 755 ${FOLDER}/bin/clang-format-diff.py
