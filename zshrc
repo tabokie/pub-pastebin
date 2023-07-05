@@ -8,6 +8,7 @@ export GPG_TTY=$(tty)
 alias commit='function _commit { git commit -s -m "$1" && git push origin `git branch --show-current` }; _commit '
 alias commit2='git commit -s -m '
 alias init_repo='git remote set-url origin git@github-tabokie:tabokie/$(basename `git rev-parse --show-toplevel`).git'
+alias init_remote='function _init_remote { git remote add $1 git@github-tabokie:$2/$(basename `git rev-parse --show-toplevel`).git }; _init_remote '
 alias push='git push origin `git branch --show-current`'
 alias glog='git log --oneline --decorate --graph -n 1000'
 export PATH=$CARGO_HOME/bin:$PATH

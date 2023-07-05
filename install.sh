@@ -4,7 +4,8 @@ FOLDER=/root/tabokie/
 
 # install tools
 sudo yum update -y
-sudo yum install git vim curl wget make gcc cmake python3 -y
+sudo yum install git vim curl wget make gcc cmake python3 screen -y
+sudo yum install llvm clang clang-tools-extra -y
 sudo yum install centos-release-scl -y
 sudo yum install devtoolset-8-gcc devtoolset-8-gcc-c++ -y
 sudo yum groupinstall "Development Tools" -y
@@ -12,6 +13,8 @@ sudo yum groupinstall "Development Tools" -y
 # github auth
 mkdir -p ${FOLDER}/keys
 ssh-keygen -t rsa -b 4096 -C "xy.tao@outlook.com" -f ${FOLDER}/keys/github -N ""
+cat ${FOLDER}/keys/github.pub
+read -p "key is generated, setup your GitHub now"
 eval "$(ssh-agent -s)"
 ssh-add ${FOLDER}/keys/github
 echo "Host github-tabokie" >> ~/.ssh/config
@@ -47,3 +50,11 @@ mkdir -p ${FOLDER}/bin
 echo "export PATH=\${PATH}:${FOLDER}/bin" >> ~/.zshrc
 wget https://raw.githubusercontent.com/llvm/llvm-project/release/16.x/clang/tools/clang-format/clang-format-diff.py -O ${FOLDER}/bin/clang-format-diff.py
 sudo chmod 755 ${FOLDER}/bin/clang-format-diff.py
+
+# gflags
+git clone https://github.com/gflags/gflags.git
+cd gflags
+git checkout v2.0
+./configure && make && sudo make install
+# lz4
+sudo yum install lz4-devel
